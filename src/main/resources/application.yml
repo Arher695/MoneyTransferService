@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: MoneyTransferService
+
+server:
+  port: 8080
+  servlet:
+    context-path: /transfer
+
+logging:
+  level:
+    com.example: DEBUG
+  file:
+    name: logs/app.log
