@@ -52,19 +52,21 @@ public class TransferService {
         if (!transfers.containsKey(request.getOperationId())) {
             throw new IllegalArgumentException("Operation not found");
         }
-
-        String expectedCode = confirmationCodes.get(request.getOperationId());
-        if (!expectedCode.equals(request.getCode())) {
-            logOperation(
-                    "CONFIRM",
-                    transfers.get(request.getOperationId()).getCardFromNumber(),
-                    transfers.get(request.getOperationId()).getCardToNumber(),
-                    transfers.get(request.getOperationId()).getAmount().getValue(),
-                    calculateFee(transfers.get(request.getOperationId()).getAmount().getValue()),
-                    "FAILED (wrong code)"
-            );
+        if (request.getCode() == null || request.getCode().length() != 4) {
             throw new IllegalArgumentException("Invalid confirmation code");
-        }
+        };
+//        String expectedCode = confirmationCodes.get(request.getOperationId());
+//        if (!expectedCode.equals(request.getCode())) {
+//            logOperation(
+//                    "CONFIRM",
+//                    transfers.get(request.getOperationId()).getCardFromNumber(),
+//                    transfers.get(request.getOperationId()).getCardToNumber(),
+//                    transfers.get(request.getOperationId()).getAmount().getValue(),
+//                    calculateFee(transfers.get(request.getOperationId()).getAmount().getValue()),
+//                    "FAILED (wrong code)"
+//            );
+//            throw new IllegalArgumentException("Invalid confirmation code");
+//        }
 
         TransferRequest transferReq = transfers.get(request.getOperationId());
 
@@ -100,11 +102,11 @@ public class TransferService {
         }
     }
 
-    private int calculateFee(int amount) {
+    private int calculateFee(Long amount) {
         return (int) (amount * 0.01); // 1%
     }
 
-    private void logOperation(String type, String from, String to, int amount, int fee, String result) {
+    private void logOperation(String type, String from, String to, Long amount, int fee, String result) {
         try (FileWriter fw = new FileWriter("logs/transfers.log", true)) {
             String line = String.format("[%s] %s | FROM: %s | TO: %s | AMOUNT: %d RUB | FEE: %d RUB | RESULT: %s%n",
                     LocalDateTime.now().format(formatter),

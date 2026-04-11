@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class Amount {
     @JsonProperty("value")
-    private Integer value;
+    private Long value;
 
     @JsonProperty("currency")
     private String currency = "RUB";
