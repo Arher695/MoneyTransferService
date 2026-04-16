@@ -16,7 +16,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 class TransferIntegrationTest {
 
     @Container
-    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15")
+    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:18")
             .withDatabaseName("transfer_test")
             .withUsername("test")
             .withPassword("test");

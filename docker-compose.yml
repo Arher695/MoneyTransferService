@@ -7,3 +7,19 @@ services:
       - ./logs:/app/logs
     environment:
       - SERVER_PORT=8080
+  money-transfer-service.main:
+    image: money-transfer-service.main:latest
+    build:
+      context: .
+      dockerfile: src/main/java/Dockerfile
+    restart: "no"
+    ports:
+      - "8081:8080"
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:8080/actuator/health || exit 1
+      interval: 30s
+      timeout: 5s
+      start_period: 30s
+      retries: 5
+    labels:
+      amplicode.image: springboot

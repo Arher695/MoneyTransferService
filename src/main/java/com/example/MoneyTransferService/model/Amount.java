@@ -11,4 +11,5 @@ public class Amount {
     @JsonProperty("currency")
     private String currency = "RUB";
 
+
 }

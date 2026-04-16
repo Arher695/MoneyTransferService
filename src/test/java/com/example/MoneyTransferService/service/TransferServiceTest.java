@@ -23,7 +23,7 @@ class TransferServiceTest {
         request.setCardToNumber("2222222222222222");
 
         Amount amount = new Amount();
-        amount.setValue(1000);
+        amount.setValue(1000L);
         request.setAmount(amount);
 
         var response = transferService.transfer(request);
@@ -40,7 +40,7 @@ class TransferServiceTest {
         request.setCardFromCVV("123");
 
         Amount amount = new Amount();
-        amount.setValue(1000);
+        amount.setValue(1000L);
         request.setAmount(amount);
 
         assertThrows(IllegalArgumentException.class, () -> transferService.transfer(request));
@@ -54,7 +54,7 @@ class TransferServiceTest {
         request.setCardToNumber("2222222222222222");
 
         Amount amount = new Amount();
-        amount.setValue(1000);
+        amount.setValue(1000L);
         request.setAmount(amount);
 
         var response = transferService.transfer(request);
